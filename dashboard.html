@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ExampleHost</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141517;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 0;
+            color: white;
+            overflow-y: auto;
+        }
+
+        .header {
+            background: url('./assets/header.jpg') no-repeat center;
+            background-size: cover;
+            height: 300px;
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+        }
+
+        .header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .stat-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #888;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .create-server-btn {
+            background-color: #e6a100;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .create-server-btn:hover {
+            background-color: #d49600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .no-servers {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .no-servers img {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Logo" width="24" height="24">
+            ExampleHost
+        </div>
+        <div class="user-info">
+            <img src="avatar.png" alt="Avatar" width="32" height="32" style="border-radius: 50%">
+            <div>
+                <div>jeffistatic</div>
+                <div style="color: #888">0.00 coins</div>
+            </div>
+        </div>
+        <button class="create-server-btn">Create a server</button>
+        <nav>
+            <a href="#" class="nav-item active">
+                <span>🏠</span> Home
+            </a>
+            <a href="#" class="nav-item">
+                <span>🛒</span> Shop
+            </a>
+            <a href="#" class="nav-item">
+                <span>⚙️</span> Control panel
+            </a>
+            <a href="#" class="nav-item">
+                <span>💰</span> Earn coins
+            </a>
+            <a href="#" class="nav-item">
+                <span>👥</span> Referrals
+            </a>
+            <a href="#" class="nav-item">
+                <span>⚙️</span> Settings
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome to ExampleHost!</h1>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>🖥️</span> Servers
+                </div>
+                <div class="stat-value">0/1</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>💾</span> Memory
+                </div>
+                <div class="stat-value">0 MB/4096 MB</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>📊</span> CPU
+                </div>
+                <div class="stat-value">0%/100%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">
+                    <span>💿</span> Disk
+                </div>
+                <div class="stat-value">0 MB/10240 MB</div>
+            </div>
+        </div>
+
+        <div class="no-servers">
+            <img src="no-servers.png" alt="No servers">
+            <h2>You don't have any servers yet.</h2>
+            <button class="create-server-btn" style="max-width: 200px; margin-top: 20px;">Create a server</button>
+        </div>
+
+        <div class="footer">
+            <p>© ExampleHost 2024 all rights reserved.</p>
+            <p>Made with ❤️ by Jeff M. Huston</p>
+            <p><a href="#" style="color: inherit;">Terms Of Service</a> • <a href="#" style="color: inherit;">Privacy Policy</a></p>
+            <p style="color: #444; margin-top: 10px;">6921d8e • v3.3.16-CE_S2 (Korat) • 998cbc4c38cd</p>
+        </div>
+    </div>
+</body>
+</html>

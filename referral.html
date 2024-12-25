@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referrals - ExampleHost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141517;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            color: white;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .create-server-btn {
+            background-color: #e6a100;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .create-server-btn:hover {
+            background-color: #d49600;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .referral-section {
+            margin-bottom: 40px;
+        }
+
+        .referral-link-container {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .referral-link-label {
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .referral-link {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .referral-link-text {
+            color: #e6a100;
+            font-family: monospace;
+        }
+
+        .customize-btn {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #888;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .customize-btn:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .customize-note {
+            color: #888;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .how-it-works {
+            margin-top: 60px;
+        }
+
+        .steps {
+            margin-top: 30px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-description {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Logo" width="24" height="24">
+            ExampleHost
+        </div>
+        <div class="user-info">
+            <img src="avatar.png" alt="Avatar" width="32" height="32" style="border-radius: 50%">
+            <div>
+                <div>jeffistatic</div>
+                <div style="color: #888">0.00 coins</div>
+            </div>
+        </div>
+        <button class="create-server-btn">Create a server</button>
+        <nav>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="shop.html" class="nav-item">
+                <i class="fas fa-shopping-cart"></i> Shop
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cogs"></i> Control panel
+            </a>
+            <a href="earn.html" class="nav-item">
+                <i class="fas fa-coins"></i> Earn coins
+            </a>
+            <a href="referral.html" class="nav-item active">
+                <i class="fas fa-users"></i> Referrals
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Referrals</h1>
+        <p class="subtitle">Share your referral link to earn coins every time a user registers using your link.</p>
+
+        <div class="referral-section">
+            <div class="referral-link-container">
+                <div class="referral-link-label">Your referral link</div>
+                <div class="referral-link">
+                    <span class="referral-link-text">https://dash.examplehost.com/join/UfxpYTTaPW8fAD8W</span>
+                    <button class="customize-btn">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <button class="customize-btn">
+                    Customize ⚡ (20 referrals)
+                </button>
+                <div class="customize-note">
+                    <i class="fas fa-info-circle"></i>
+                    You need at least 20 referrals to be able to customize your link.
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-label">Total referrals</div>
+                    <div class="stat-value">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-label">Earned from purchases</div>
+                    <div class="stat-value">0 coins</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-label">Coins per referral</div>
+                    <div class="stat-value">50</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-label">Total</div>
+                    <div class="stat-value">0 coins</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h2>How do referrals work?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Copy your referral link ✂️</div>
+                        <div class="step-description">You can find your referral link above.</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Share your referral link 🤝</div>
+                        <div class="step-description">Send it to your friends, your family, make a YouTube video, a Tweet... Be creative!</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Users register using your link 👥</div>
+                        <div class="step-description">When someone registers using your link, you'll receive coins!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© ExampleHost 2024 all rights reserved.</p>
+            <p>Made with ❤️ by Jeff M. Huston</p>
+            <p><a href="#">Terms Of Service</a> • <a href="#">Privacy Policy</a></p>
+            <p style="color: #444; margin-top: 10px;">6921d8e • v3.3.16-CE_S2 (Korat) • 998cbc4c38cd</p>
+        </div>
+    </div>
+</body>
+</html>

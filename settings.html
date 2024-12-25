@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - ExampleHost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141517;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            color: white;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .create-server-btn {
+            background-color: #e6a100;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .create-server-btn:hover {
+            background-color: #d49600;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .discord-notice {
+            background-color: rgba(88, 101, 242, 0.2);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .discord-notice i {
+            color: #5865F2;
+        }
+
+        .settings-section {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .settings-note {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-control:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .avatar-preview {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .update-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .update-btn:hover {
+            background-color: #45a049;
+        }
+
+        .passkeys-section {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .passkeys-icon {
+            font-size: 2em;
+            color: #e6a100;
+            margin-bottom: 15px;
+        }
+
+        .register-passkey-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .register-passkey-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .danger-zone {
+            margin-top: 40px;
+        }
+
+        .delete-account-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        .delete-account-btn:hover {
+            background-color: #c82333;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Logo" width="24" height="24">
+            ExampleHost
+        </div>
+        <div class="user-info">
+            <img src="avatar.png" alt="Avatar" width="32" height="32" style="border-radius: 50%">
+            <div>
+                <div>jeffistatic</div>
+                <div style="color: #888">0.00 coins</div>
+            </div>
+        </div>
+        <button class="create-server-btn">Create a server</button>
+        <nav>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="shop.html" class="nav-item">
+                <i class="fas fa-shopping-cart"></i> Shop
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cogs"></i> Control panel
+            </a>
+            <a href="earn.html" class="nav-item">
+                <i class="fas fa-coins"></i> Earn coins
+            </a>
+            <a href="referral.html" class="nav-item">
+                <i class="fas fa-users"></i> Referrals
+            </a>
+            <a href="settings.html" class="nav-item active">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Settings</h1>
+
+        <div class="discord-notice">
+            <i class="fab fa-discord"></i>
+            You are logged in with Discord. Some settings cannot be changed.
+        </div>
+
+        <div class="settings-section">
+            <h2>Profile</h2>
+            <p class="settings-note">
+                <i class="fas fa-pencil"></i>
+                You can change the following settings, however as you are using Discord, they will automatically be updated every time you login.
+            </p>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" value="jeffistatic" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Avatar</label>
+                    <img src="avatar.png" alt="Avatar" class="avatar-preview">
+                    <input type="text" class="form-control" value="https://cdn.discordapp.com/avatars/623480113589387277/63c7980ab079ce62be176cc" disabled>
+                </div>
+
+                <button type="submit" class="update-btn">Update profile</button>
+            </form>
+        </div>
+
+        <div class="settings-section">
+            <h2>Your passkeys</h2>
+            <div class="passkeys-section">
+                <i class="fas fa-key passkeys-icon"></i>
+                <p>You have no passkeys registered.</p>
+                <p>We recommend you to register a passkey to login faster, and secure your account.</p>
+                <button class="register-passkey-btn">Register a new passkey</button>
+            </div>
+        </div>
+
+        <div class="settings-section danger-zone">
+            <h2>Danger zone</h2>
+            <p class="settings-note">Delete your account</p>
+            <button class="delete-account-btn">Delete account</button>
+        </div>
+
+        <div class="footer">
+            <p>© ExampleHost 2024 all rights reserved.</p>
+            <p>Made with ❤️ by Jeff M. Huston</p>
+            <p><a href="#">Terms Of Service</a> • <a href="#">Privacy Policy</a></p>
+            <p style="color: #444; margin-top: 10px;">6921d8e • v3.3.16-CE_S2 (Korat) • 998cbc4c38cd</p>
+        </div>
+    </div>
+</body>
+</html>

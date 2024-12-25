@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Coins - ExampleHost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141517;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            color: white;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .create-server-btn {
+            background-color: #e6a100;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .create-server-btn:hover {
+            background-color: #d49600;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin: 40px 0 10px;
+        }
+
+        .section-description {
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .linkvertise-card {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .linkvertise-card:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .linkvertise-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .linkvertise-title {
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .linkvertise-reward {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .discord-servers {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .discord-card {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .server-banner {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .server-info {
+            padding: 20px;
+        }
+
+        .server-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-top: -25px;
+            margin-bottom: 10px;
+        }
+
+        .server-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .server-description {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .server-stats {
+            display: flex;
+            gap: 15px;
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .server-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            width: 14%;
+            height: 100%;
+            background-color: #e6a100;
+            border-radius: 3px;
+        }
+
+        .join-btn {
+            background-color: #e6a100;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        .join-btn:hover {
+            background-color: #d49600;
+        }
+
+        .add-server {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .add-server:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .add-server i {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Logo" width="24" height="24">
+            ExampleHost
+        </div>
+        <div class="user-info">
+            <img src="avatar.png" alt="Avatar" width="32" height="32" style="border-radius: 50%">
+            <div>
+                <div>jeffistatic</div>
+                <div style="color: #888">0.00 coins</div>
+            </div>
+        </div>
+        <button class="create-server-btn">Create a server</button>
+        <nav>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="shop.html" class="nav-item">
+                <i class="fas fa-shopping-cart"></i> Shop
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cogs"></i> Control panel
+            </a>
+            <a href="earn.html" class="nav-item active">
+                <i class="fas fa-coins"></i> Earn coins
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i> Referrals
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Earn coins</h1>
+        <p class="subtitle">Looking for a way to earn coins? You are in the right place!</p>
+
+        <h2 class="section-title">Earn free coins</h2>
+        <p class="section-description">Don't want to spend money? No problem! You can earn coins for free by doing small tasks.</p>
+
+        <div class="linkvertise-card">
+            <div class="linkvertise-info">
+                <div class="linkvertise-title">Linkvertise</div>
+                <div class="linkvertise-reward">5 coins per click</div>
+            </div>
+            <i class="fas fa-link"></i>
+        </div>
+
+        <h2 class="section-title">Join For Rewards (Discord)</h2>
+        <p class="section-description">Join Discord servers and earn coins for free.<br>You have to log out and log in again to receive rewards and see servers you've joined.</p>
+
+        <div class="discord-servers">
+            <div class="discord-card">
+                <img src="https://i.imgur.com/example.jpg" alt="Server Banner" class="server-banner">
+                <div class="server-info">
+                    <img src="https://i.imgur.com/example2.jpg" alt="Server Icon" class="server-icon">
+                    <div class="server-name">Huston Network | #1 Minecraft Network</div>
+                    <div class="server-description">No description</div>
+                    <div class="server-stats">
+                        <div class="server-stat">
+                            <span class="online-dot"></span>
+                            39 online
+                        </div>
+                        <div class="server-stat">
+                            <i class="fas fa-users"></i>
+                            192 members
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <button class="join-btn">Join for 10 <i class="fas fa-coins"></i></button>
+                </div>
+            </div>
+
+            <div class="add-server">
+                <i class="fas fa-plus"></i>
+                <div>Add your Discord server</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Today's biggest earners</h2>
+        <p class="section-description">These users have earned the most coins today.</p>
+
+        <div class="footer">
+            <p>© ExampleHost 2024 all rights reserved.</p>
+            <p>Made with ❤️ by Jeff M. Huston</p>
+            <p><a href="#">Terms Of Service</a> • <a href="#">Privacy Policy</a></p>
+            <p style="color: #444; margin-top: 10px;">6921d8e • v3.3.16-CE_S2 (Korat) • 998cbc4c38cd</p>
+        </div>
+    </div>
+</body>
+</html>
